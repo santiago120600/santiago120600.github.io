@@ -19,7 +19,9 @@ function HomePage() {
     return (
         <>
             <Hero />
-            <Container maxWidth="lg" className={classes.blogsContainer}>
+            <Container 
+                maxWidth="lg" 
+                className={classes.blogsContainer}>
                 <Typography variant="h4" className={classes.blogTitle}>
                     Artículos
                 </Typography>

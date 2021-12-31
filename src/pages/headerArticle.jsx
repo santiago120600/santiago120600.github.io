@@ -7,21 +7,32 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
+    mainContainer:{
+        marginTop:"55px",
+        [theme.breakpoints.down("sm")]: {
+            marginTop: "40px",
+        }
+    },
     title: {
-        backgroundColor:"brown"
+        marginTop: "10px",
+        textAlign:"justify",
+        [theme.breakpoints.down("sm")]: {
+            marginTop: "5px",
+            textAlign:"left"
+        }
     },
     author: {
         display: "flex"
     },
+    description:{
+        marginTop:"10px",
+    },
+    divider:{
+        marginTop:"30px",
+    },
     red:{
-        backgroundColor:"red"
-    },
-    green:{
-        backgroundColor:"green"
-    },
-    blue:{
-        backgroundColor:"blue"
-    },
+        backgroundColor:"red",
+    }
 }));
 
 function Header(props) {
@@ -29,24 +40,28 @@ function Header(props) {
     const { title, author, date, profile, description } = props;
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="sm" className={classes.mainContainer}>
             <Typography
                 component="h2"
                 variant="h3"
                 color="inherit"
-                align="center"
-                noWrap
+                align="left"
                 className={classes.title}
             >
                 {title}
             </Typography >
-            <Typography variant="subtitle1" align="center" color="textSecondary" component="p" className={classes.blue}>
+            <Typography 
+                variant="subtitle1" 
+                align="left" 
+                color="textSecondary" 
+                component="p" 
+                className={classes.description}>
                 {description}
             </Typography>
-            <Divider />
-            <Container className={classes.red}>
+            <Divider className={classes.divider}/>
+            <Container>
                 <Box className={classes.author} mt={2}>
-                    <Avatar src={profile} />
+                    <Avatar src={profile}  />
                     <Box ml={2}>
                         <Typography variant="subtitle2" component="p">
                             {author}
