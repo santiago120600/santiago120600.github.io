@@ -38,7 +38,6 @@ function BlogTemplate() {
                         <Typography
                             variant="subtitle1"
                             align="left"
-                            color="text.secondary"
                             component="p"
                         >
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus!

@@ -7,6 +7,14 @@ import Hero from './hero';
 import CardComponent  from './card';
 
 const useStyles = makeStyles((theme) => ({
+    blogsContainer: {
+        paddingTop: theme.spacing(3)
+    },
+    blogTitle: {
+        fontWeight: 800,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+    },
     paginationContainer: {
         display: "flex",
         justifyContent: "center"
@@ -22,7 +30,9 @@ function HomePage() {
             <Container 
                 maxWidth="lg" 
                 className={classes.blogsContainer}>
-                <Typography variant="h4" className={classes.blogTitle}>
+                <Typography 
+                    variant="h4" 
+                    className={classes.blogTitle}>
                     Artículos
                 </Typography>
                 <Grid container spacing={3}>
