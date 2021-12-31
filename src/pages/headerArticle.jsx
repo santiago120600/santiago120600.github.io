@@ -15,10 +15,9 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         marginTop: "10px",
-        textAlign:"justify",
+        textAlign:"left",
         [theme.breakpoints.down("sm")]: {
             marginTop: "5px",
-            textAlign:"left"
         }
     },
     author: {
