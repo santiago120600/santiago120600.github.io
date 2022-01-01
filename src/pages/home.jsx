@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const blogs = [
-    {title:'Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn', image:'/images/docker.png',desc:'DRF + Docker + Nginx + Gunicorn',avatar:'/images/me.jpg',author:'Santiago Castañón Arvizu',date:'27 Diciembre, 2021',goto:'/blog'},
+    {title:'Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn', image:'/images/docker.png',desc:'DRF + Docker + Nginx + Gunicorn',avatar:'/images/me.jpg',author:'Santiago Castañón Arvizu',date:'27 Diciembre, 2021',goto:'/docker+django+nginx+gunicorn'},
 ];
 
 function HomePage() {

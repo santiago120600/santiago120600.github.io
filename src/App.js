@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Navigation from './pages/navigation';
 import HomePage from './pages/home';
-import BlogTemplate from './pages/blogTemplate';
 import NotFound from './pages/404';
+import DockerDjangoBlog from './blogs/docker-django';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Navigation/>
       <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/blog" element={<BlogTemplate />} />
+          <Route path="/docker+django+nginx+gunicorn" element={<DockerDjangoBlog />} />
           <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
