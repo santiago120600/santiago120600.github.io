@@ -9,6 +9,7 @@ import ImageComponent from './imageComponent';
 import Button from '@material-ui/core/Button';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import CodeContainer from './codeContainer';
+import Footer from './footer';
 
 const useStyles = makeStyles((theme) => ({
     content:{
@@ -17,12 +18,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const header = {
+    title:"Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn",
+    author:"Santiago Castañón Arvizu",
+    date:"27 Diciembre, 2021",
+    profile:"/images/me.jpg",
+    description:'En este blog aprenderás a realizar un  "Hola Mundo" usando Django Rest Framework, Docker, Nginx y Gunicorn; también aprenderás a configurar el proyecto con una base de datos PostgreSQL.',
+};
+
 function BlogTemplate() {
     const classes = useStyles();
 
     return (
         <>
-            <Header title="Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn" author="Santiago Castañón Arvizu" date="27 Diciembre, 2021" profile="/images/me.jpg" description='En este blog aprenderás a realizar un  "Hola Mundo" usando Django Rest Framework, Docker, Nginx y Gunicorn; también aprenderás a configurar el proyecto con una base de datos PostgreSQL.'/>
+            <Header title={header.title} author={header.author} date={header.date} profile={header.profile} description={header.description}/>
             <Container 
                 className={classes.content}
                 >
@@ -66,6 +75,7 @@ function BlogTemplate() {
                         <Gist id='d0fc896d944ae848dbd8aadfba802b92' />
                         <Gist id='76df2bdebb67c014e80bdf23a59cf884' />
                         <Gist id='7b47eeab13e59769289dce4803d22f8f' />
+                        <Gist id='48923359d0caf1d11e84d2e487dca0ec' />
                         <Button
                             variant="contained"
                             color="default"
@@ -78,6 +88,7 @@ function BlogTemplate() {
                     </Box>
                 </Box>    
             </Container>
+            <Footer/>
         </>
     );
 }

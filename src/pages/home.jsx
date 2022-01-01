@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const blogs = [
+    {title:'Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn', image:'/images/docker.png',desc:'DRF + Docker + Nginx + Gunicorn',avatar:'/images/me.jpg',author:'Santiago Castañón Arvizu',date:'27 Diciembre, 2021',goto:'/blog'},
+];
+
 function HomePage() {
     const classes = useStyles();
 
@@ -36,9 +40,11 @@ function HomePage() {
                     Artículos
                 </Typography>
                 <Grid container spacing={3}>
+                    {blogs.map((item)=>
                     <Grid item xs={12} sm={6} md={4}>
-                        <CardComponent title="Docker Django" image="/images/docker.png" desc="Contenedor Docker + Nginx + Gunicorn" avatar="/images/me.jpg" author="Santiago Castañón Arvizu" date="27 Diciembre, 2021" goto="/blog"/>
+                        <CardComponent title={item.title} image={item.image} desc={item.desc} avatar={item.avatar} author={item.author} date={item.date} goto={item.goto}/>
                     </Grid>
+                    )}
                 </Grid>
             </Container>
         </>
