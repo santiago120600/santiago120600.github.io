@@ -1,13 +1,14 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles((theme) => ({
   body:{
     backgroundColor:"#252620",
     color:"#fff",
+    marginBottom:"10px",
+    marginTop:"10px",
   },
 }));
 

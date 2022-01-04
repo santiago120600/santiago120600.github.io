@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ImageComponent from './imageComponent';
+import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
     content:{

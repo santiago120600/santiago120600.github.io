@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const blogs = [
-    {title:'Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn', image:'/images/docker.png',desc:'DRF + Docker + Nginx + Gunicorn',avatar:'/images/me.jpg',author:'Santiago Castañón Arvizu',date:'27 Diciembre, 2021',goto:'/docker+django+nginx+gunicorn'},
+    {title:'Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn', image:'/images/docker.png',desc:'DRF + Docker + Nginx + Gunicorn',avatar:'/images/me.jpg',author:'Santiago Castañón Arvizu',date:'3 Enero, 2022',goto:'/docker+django+nginx+gunicorn'},
 ];
 
 function HomePage() {
@@ -40,8 +40,8 @@ function HomePage() {
                     Artículos
                 </Typography>
                 <Grid container spacing={3}>
-                    {blogs.map((item)=>
-                    <Grid item xs={12} sm={6} md={4}>
+                    {blogs.map((item, index)=>
+                    <Grid item xs={12} sm={6} md={4} key={index}>
                         <CardComponent title={item.title} image={item.image} desc={item.desc} avatar={item.avatar} author={item.author} date={item.date} goto={item.goto}/>
                     </Grid>
                     )}
