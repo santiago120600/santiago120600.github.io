@@ -23,7 +23,7 @@ function Footer() {
     return (
         <Container
             className={classes.body}
-            maxWidth="false"
+            maxWidth="xl"
         >
             <Box
             >

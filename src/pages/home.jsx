@@ -5,10 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Hero from './hero';
 import CardComponent  from './card';
+import Footer from './footer';
 
 const useStyles = makeStyles((theme) => ({
     blogsContainer: {
-        paddingTop: theme.spacing(3)
+        paddingTop: theme.spacing(3),
+        marginBottom:"20px",
     },
     blogTitle: {
         fontWeight: 800,
@@ -47,6 +49,7 @@ function HomePage() {
                     )}
                 </Grid>
             </Container>
+            <Footer/>
         </>
     );
 }
