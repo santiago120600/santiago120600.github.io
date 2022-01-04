@@ -27,7 +27,7 @@ function DockerDjangoBlog() {
         <>
             <Header title={header.title} author={header.author} date={header.date} profile={header.profile} description={header.description}/>
             <BlogContent
-                image="/images/django-docker.webp"
+                image="/images/docker-large.png"
             >
                 <Typography
                     variant="subtitle1"
