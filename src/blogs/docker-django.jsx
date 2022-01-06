@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const header = {
     title:"Hola Mundo Django Rest Framework, Docker, Nginx y Gunicorn",
     author:"Santiago Castañón Arvizu",
-    date:"3 Enero, 2022",
+    date:"6 Enero, 2022",
     profile:"/images/me.jpg",
     description:'En este blog aprenderás a realizar un  "Hola Mundo" usando Django Rest Framework, Docker, Nginx y Gunicorn; también aprenderás a configurar el proyecto con una base de datos PostgreSQL.',
 };
@@ -60,7 +60,7 @@ function DockerDjangoBlog() {
                     align="left"
                 >
                     <p>Ahora crearemos los archivos de configuración que necesitamos para gunicorn y nginx, los cuales colocaremos al mismo nivel que nuestro <strong>Dockerfile</strong>.Crearemos una carpeta llamada <strong>config</strong> dentro de la cual crearemos otras dos carpeta <strong>gunicorn</strong> y <strong>nginx</strong>.</p>
-                    <p>Dentro de la carpeta <strong>gunicorn</strong> vamos crear un archivo <strong>config.py</strong> con el siguiente contenido:</p>
+                    <p>Dentro de la carpeta <strong>gunicorn</strong> vamos crear un archivo <strong>conf.py</strong> con el siguiente contenido:</p>
                 </Typography>
                 <h3>conf.py </h3>    
                 <Gist id='d0fc896d944ae848dbd8aadfba802b92' />
@@ -68,7 +68,7 @@ function DockerDjangoBlog() {
                     variant="subtitle1"
                     align="left"
                 >
-                    <p>Ahora dentro de la carpeta <strong>nginx</strong> creamos un archivo <strong>local.conf</strong> con el siguiente contenido:</p>
+                    <p>Ahora dentro de la carpeta <strong>nginx</strong> crearemos otro directorio llamado <strong>conf.d</strong>, dentro de este directorio crearemos un archivo <strong>local.conf</strong> con el siguiente contenido:</p>
                 </Typography>
                 <h3>local.conf </h3>
                 <Gist id='76df2bdebb67c014e80bdf23a59cf884' />
@@ -81,7 +81,8 @@ function DockerDjangoBlog() {
                 <CodeContainer>
                     config/<br />
                     -------nginx/<br/>
-                    ------------local.conf<br/> 
+                    ------------conf.d/<br/>
+                    -------------------local.conf<br/> 
                     -------gunicorn/<br/>
                     ------------conf.py<br/> 
                     docker.compose.yml <br />
@@ -95,7 +96,8 @@ function DockerDjangoBlog() {
                     Abrimos una consola en el directorio donde se encuentra nuestro <strong>Dockerfile</strong> y <strong>docker-compose.yml</strong> y ejecutamos el siguiente comando:
                 </Typography>
                 <CodeContainer>
-                    $ docker-compose run web django-admin startproject mysite
+                    $ docker-compose run web django-admin startproject mysite <br />
+                    $ docker-compose build <br />
                 </CodeContainer>
                 <Typography
                     variant="subtitle1"
@@ -103,6 +105,17 @@ function DockerDjangoBlog() {
                 >
                     <p>Este comando nos ayudará a crear nuestro proyecto Django.</p>
                     <p>Después de ejecutar ese comando se habrá creado una carpeta <strong>mysite/</strong>, la cual contendrá nuestros archivos Django.</p>
+                    <p>Ahora podemos ejecutar el siguiente comando y después abrir un navegador en la dirección <strong>http://localhost:8000</strong> para asegurarnos que todo funcione adecuadamente.</p>
+                </Typography>
+                <CodeContainer>
+                    $ docker-compose up
+                </CodeContainer>
+                <ImageComponent image="/images/welcome-screen-django.png"/>
+                <Typography
+                    variant="subtitle1"
+                    align="left"
+                >
+                    <p>Si todo salió bien nos deberá mostrar esta pantalla en el navegador.</p>
                     <p>Ahora podemos crear nuestra app "Hola mundo".</p>
                 </Typography>
                 <CodeContainer>
@@ -158,6 +171,13 @@ function DockerDjangoBlog() {
                     variant="subtitle1"
                     align="left"
                 >
+                    <p>También agregaremos unas líneas a el archivo <strong>manage.py</strong> que se encuentra en <strong>mysite/manage.py</strong>. Agregaremos la líneas que se muestran con una flecha en la siguiente imagen.</p>
+                </Typography>
+                <ImageComponent image="/images/managepy.png"/>
+                <Typography
+                    variant="subtitle1"
+                    align="left"
+                >
                     <p>Ahora, en nuestro archivo <strong>settings.py</strong> debemos sustituir los valores de las variables que queremos guaradar en nuestro <strong>.env</strong>. Primero importaremos os.</p>
                 </Typography>
                 <h3>settings.py</h3>
@@ -178,10 +198,12 @@ function DockerDjangoBlog() {
                     align="left"
                 >
                     <p>En este ejemplo <strong>variable</strong> es el nombre de la variable de nuestro archivo settings.py, mientras que <strong>VARIABLE</strong> es el nombre que lleva esta variable en el archivo <strong>.env</strong></p>
-                    <p>Un ejemplo sería:</p>
+                    <p>Las variables quedarían de la siguiente forma:</p>
                 </Typography>
                 <CodeContainer>
-                    SECRET_KEY = os.environ.get('SECRET_KEY')
+                    SECRET_KEY = os.environ.get('SECRET_KEY') <br/>
+                    DEBUG = os.environ.get('DEBUG') <br/>
+                    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(",") <br/>
                 </CodeContainer>
                 <Typography
                     variant="subtitle1"
@@ -191,6 +213,26 @@ function DockerDjangoBlog() {
                 </Typography>
                 <h3>settings.py</h3>
                 <Gist id='13a8ca656e25ca46c965e0b70618da22' />
+                <Typography
+                    variant="subtitle1"
+                    align="left"
+                >
+                    <p>Ahora aplicaremos las migraciones para corroborar que la configuración de la base de datos sea correcta.</p>
+                </Typography>
+                <CodeContainer>
+                    $ docker-compose run web mysite/manage.py migrate
+                </CodeContainer>
+                <Typography
+                    variant="subtitle1"
+                    align="left"
+                >
+                    <p>Después de haber aplicado las migraciones podemos entrar a nuestra base de datos para corroborar que las tablas se hayan creado.</p>
+                </Typography>
+                <CodeContainer>
+                    $ docker-compose exec db psql --username=postgres --dbname=postgres
+                    <br />
+                    postgres=# \dt
+                </CodeContainer>
                 <Typography
                     variant="subtitle1"
                     align="left"
