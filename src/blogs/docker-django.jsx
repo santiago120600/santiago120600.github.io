@@ -2,13 +2,13 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../pages/headerArticle';
 import BlogContent from '../pages/blogContent';
-import CodeContainer from '../pages/codeContainer';
 import Footer from '../pages/footer';
 import Gist from 'react-gist';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ImageComponent from '../pages/imageComponent';
+import { CodeBlock, dracula } from "react-code-blocks";
 
 const useStyles = makeStyles((theme) => ({
 }));
@@ -20,6 +20,52 @@ const header = {
     profile:"/images/me.jpg",
     description:'En este blog aprenderás a realizar un  "Hola Mundo" usando Django Rest Framework, Docker, Nginx y Gunicorn; también aprenderás a configurar el proyecto con una base de datos PostgreSQL.',
 };
+
+const codeblock = {
+    "showLineNumbers":false,
+    "startingLineNumber":1
+};
+
+const copyblock = {
+    "showLineNumbers":true,
+    "startingLineNumber":1
+};
+
+const code = [`config/
+-------nginx/
+------------conf.d/
+-------------------local.conf
+-------gunicorn/
+------------conf.py
+docker.compose.yml
+Dockerfile
+requirements.txt`,
+`docker-compose run web django-admin startproject mysite
+docker-compose build `,`docker-compose up`,
+`mkdir mysite\\helloWorld
+docker-compose run web django-admin startapp helloWorld ./mysite/helloWorld`,
+`# Environment
+.env`,
+`import os 
+import dotenv
+from django.core.wsgi import get_wsgi_application
+
+dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+application = get_wsgi_application()`,
+`import os`,
+`variable = os.environ.get('VARIABLE')`,
+`SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(",")`,
+`docker-compose run web mysite/manage.py migrate`,
+`docker-compose exec db psql --username=postgres --dbname=postgres
+postgres=# \dt`,
+`from django.urls import path
+from helloWorld import views
+
+urlpatterns = [ path('',views.helloApi,name="helloApi"), ]`
+,`docker-compose up `];
 
 function DockerDjangoBlog() {
     const classes = useStyles();
@@ -78,27 +124,26 @@ function DockerDjangoBlog() {
                 >
                     La estructura de archivos sería la siguiente:
                 </Typography>
-                <CodeContainer>
-                    config/<br />
-                    -------nginx/<br/>
-                    ------------conf.d/<br/>
-                    -------------------local.conf<br/> 
-                    -------gunicorn/<br/>
-                    ------------conf.py<br/> 
-                    docker.compose.yml <br />
-                     Dockerfile<br />
-                     requirements.txt<br />
-                </CodeContainer>
+                <CodeBlock
+                    text={code[0]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
                 >
                     Abrimos una consola en el directorio donde se encuentra nuestro <strong>Dockerfile</strong> y <strong>docker-compose.yml</strong> y ejecutamos el siguiente comando:
                 </Typography>
-                <CodeContainer>
-                    $ docker-compose run web django-admin startproject mysite <br />
-                    $ docker-compose build <br />
-                </CodeContainer>
+                <CodeBlock
+                    text={code[1]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -107,9 +152,14 @@ function DockerDjangoBlog() {
                     <p>Después de ejecutar ese comando se habrá creado una carpeta <strong>mysite/</strong>, la cual contendrá nuestros archivos Django.</p>
                     <p>Ahora podemos ejecutar el siguiente comando y después abrir un navegador en la dirección <strong>http://localhost:8000</strong> para asegurarnos que todo funcione adecuadamente.</p>
                 </Typography>
-                <CodeContainer>
-                    $ docker-compose up
-                </CodeContainer>
+                <CodeBlock
+                    text={code[2]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
+                <br />
                 <ImageComponent image="/images/welcome-screen-django.png"/>
                 <Typography
                     variant="subtitle1"
@@ -118,10 +168,13 @@ function DockerDjangoBlog() {
                     <p>Si todo salió bien nos deberá mostrar esta pantalla en el navegador.</p>
                     <p>Ahora podemos crear nuestra app "Hola mundo".</p>
                 </Typography>
-                <CodeContainer>
-                    $ mkdir mysite\helloWorld<br/>
-                    $ docker-compose run web django-admin startapp helloWorld ./mysite/helloWorld
-                </CodeContainer>
+                <CodeBlock
+                    text={code[3]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -145,10 +198,13 @@ function DockerDjangoBlog() {
                     <p>Este archivo lo agregaremos a nuestro <strong>.gitignore</strong> para que no sea tomado en cuenta en nuestro sistema de control de versiones.</p>
                 </Typography>
                 <h3>.gitignore</h3>
-                <CodeContainer>
-                    # Environment<br/>
-                    .env
-                </CodeContainer>
+                <CodeBlock
+                    text={code[4]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -156,17 +212,13 @@ function DockerDjangoBlog() {
                     <p>Para poder usar este archivo .env haremos uso de <a href="https://github.com/jpadilla/django-dotenv" target="_blank" rel="noreferrer">django-dotenv</a>, el cual ya se encuentra en nuestro archivo <strong>requirements.txt</strong></p>
                     <p>Además debemos agregar unas líneas a el archivo <strong>wsgi.py</strong> que se encuentra en <strong>mysite/mysite/wsgi.py</strong>, como nos indica la documentación. </p>
                 </Typography>
-                <CodeContainer>
-                    import os 
-                    <p style={{color:"green"}}>import dotenv</p>
-                    from django.core.wsgi import get_wsgi_application <br />
-                    <br />
-                    <p style={{color:"green"}}>dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))</p> 
-                    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings") <br />
-                    <br />
-                    application = get_wsgi_application()
-                    <br />
-                </CodeContainer>
+                <CodeBlock
+                    text={code[5]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -181,18 +233,26 @@ function DockerDjangoBlog() {
                     <p>Ahora, en nuestro archivo <strong>settings.py</strong> debemos sustituir los valores de las variables que queremos guaradar en nuestro <strong>.env</strong>. Primero importaremos os.</p>
                 </Typography>
                 <h3>settings.py</h3>
-                <CodeContainer>
-                    import os
-                </CodeContainer>
+                <CodeBlock
+                    text={code[6]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
                 >
                     <p>Ahora, cambiaremos el valor de las variables DEBUG, ALLOWED_HOSTS, SECRET_KEY, ALLOWED_HOSTS, además de las variables dentro del DATABASES, osea, todas las variables que vamos a guardar en nuestro <strong>.env</strong>. Los valores que agregaremos serán como el siguiente:</p>
                 </Typography>
-                <CodeContainer>
-                    variable = os.environ.get('VARIABLE')
-                </CodeContainer>
+                <CodeBlock
+                    text={code[7]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -200,11 +260,13 @@ function DockerDjangoBlog() {
                     <p>En este ejemplo <strong>variable</strong> es el nombre de la variable de nuestro archivo settings.py, mientras que <strong>VARIABLE</strong> es el nombre que lleva esta variable en el archivo <strong>.env</strong></p>
                     <p>Las variables quedarían de la siguiente forma:</p>
                 </Typography>
-                <CodeContainer>
-                    SECRET_KEY = os.environ.get('SECRET_KEY') <br/>
-                    DEBUG = os.environ.get('DEBUG') <br/>
-                    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(",") <br/>
-                </CodeContainer>
+                <CodeBlock
+                    text={code[8]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -219,20 +281,26 @@ function DockerDjangoBlog() {
                 >
                     <p>Ahora aplicaremos las migraciones para corroborar que la configuración de la base de datos sea correcta.</p>
                 </Typography>
-                <CodeContainer>
-                    $ docker-compose run web mysite/manage.py migrate
-                </CodeContainer>
+                <CodeBlock
+                    text={code[9]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
                 >
                     <p>Después de haber aplicado las migraciones podemos entrar a nuestra base de datos para corroborar que las tablas se hayan creado.</p>
                 </Typography>
-                <CodeContainer>
-                    $ docker-compose exec db psql --username=postgres --dbname=postgres
-                    <br />
-                    postgres=# \dt
-                </CodeContainer>
+                <CodeBlock
+                    text={code[10]}
+                    language={'python'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -248,14 +316,13 @@ function DockerDjangoBlog() {
                     <p>Esta función nos devolverá un <strong>Hello, world!</strong> cada que sea llamada.</p>
                     <p>Ahora, crearemos un archivo <strong>urls.py</strong> dentro de la carpeta <strong>helloWorld</strong>. </p>
                 </Typography>
-                <CodeContainer>
-                    from django.urls import path <br/>
-                    from helloWorld import views<br/>
-                    <br/>
-                    urlpatterns = [
-                        path('',views.helloApi,name="helloApi"),
-                    ]
-                </CodeContainer>
+                <CodeBlock
+                    text={code[11]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                 >
@@ -268,9 +335,13 @@ function DockerDjangoBlog() {
                 >
                     <p>Ahora sólo debemos ponerlo en marcha.</p>
                 </Typography>
-                <CodeContainer>
-                    $ docker-compose up <br />
-                </CodeContainer>
+                <CodeBlock
+                    text={code[12]}
+                    language={'text'}
+                    showLineNumbers={codeblock['showLineNumbers']}
+                    startingLineNumber={codeblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
