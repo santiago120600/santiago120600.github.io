@@ -53,6 +53,28 @@ from django.core.wsgi import get_wsgi_application
 dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 application = get_wsgi_application()`,
+`import os
+import sys
+import dotenv
+
+
+def main():
+    dotenv.read_dotenv()
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()
+`,
 `import os`,
 `variable = os.environ.get('VARIABLE')`,
 `SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -223,9 +245,15 @@ function DockerDjangoBlog() {
                     variant="subtitle1"
                     align="left"
                 >
-                    <p>También agregaremos unas líneas a el archivo <strong>manage.py</strong> que se encuentra en <strong>mysite/manage.py</strong>. Agregaremos la líneas que se muestran con una flecha en la siguiente imagen.</p>
+                    <p>También agregaremos unas líneas a el archivo <strong>manage.py</strong> que se encuentra en <strong>mysite/manage.py</strong>. Agregaremos la líneas 3 y 7 del siguiente script:</p>
                 </Typography>
-                <ImageComponent image="/images/managepy.png"/>
+                <CodeBlock
+                    text={code[6]}
+                    language={'python'}
+                    showLineNumbers={copyblock['showLineNumbers']}
+                    startingLineNumber={copyblock['startingLineNumber']}
+                    theme={dracula}
+                />
                 <Typography
                     variant="subtitle1"
                     align="left"
@@ -234,7 +262,7 @@ function DockerDjangoBlog() {
                 </Typography>
                 <h3>settings.py</h3>
                 <CodeBlock
-                    text={code[6]}
+                    text={code[7]}
                     language={'python'}
                     showLineNumbers={copyblock['showLineNumbers']}
                     startingLineNumber={copyblock['startingLineNumber']}
@@ -247,7 +275,7 @@ function DockerDjangoBlog() {
                     <p>Ahora, cambiaremos el valor de las variables DEBUG, ALLOWED_HOSTS, SECRET_KEY, ALLOWED_HOSTS, además de las variables dentro del DATABASES, osea, todas las variables que vamos a guardar en nuestro <strong>.env</strong>. Los valores que agregaremos serán como el siguiente:</p>
                 </Typography>
                 <CodeBlock
-                    text={code[7]}
+                    text={code[8]}
                     language={'python'}
                     showLineNumbers={copyblock['showLineNumbers']}
                     startingLineNumber={copyblock['startingLineNumber']}
@@ -261,7 +289,7 @@ function DockerDjangoBlog() {
                     <p>Las variables quedarían de la siguiente forma:</p>
                 </Typography>
                 <CodeBlock
-                    text={code[8]}
+                    text={code[9]}
                     language={'python'}
                     showLineNumbers={copyblock['showLineNumbers']}
                     startingLineNumber={copyblock['startingLineNumber']}
@@ -282,7 +310,7 @@ function DockerDjangoBlog() {
                     <p>Ahora aplicaremos las migraciones para corroborar que la configuración de la base de datos sea correcta.</p>
                 </Typography>
                 <CodeBlock
-                    text={code[9]}
+                    text={code[10]}
                     language={'text'}
                     showLineNumbers={codeblock['showLineNumbers']}
                     startingLineNumber={codeblock['startingLineNumber']}
@@ -295,7 +323,7 @@ function DockerDjangoBlog() {
                     <p>Después de haber aplicado las migraciones podemos entrar a nuestra base de datos para corroborar que las tablas se hayan creado.</p>
                 </Typography>
                 <CodeBlock
-                    text={code[10]}
+                    text={code[11]}
                     language={'python'}
                     showLineNumbers={codeblock['showLineNumbers']}
                     startingLineNumber={codeblock['startingLineNumber']}
@@ -317,7 +345,7 @@ function DockerDjangoBlog() {
                     <p>Ahora, crearemos un archivo <strong>urls.py</strong> dentro de la carpeta <strong>helloWorld</strong>. </p>
                 </Typography>
                 <CodeBlock
-                    text={code[11]}
+                    text={code[12]}
                     language={'python'}
                     showLineNumbers={copyblock['showLineNumbers']}
                     startingLineNumber={copyblock['startingLineNumber']}
@@ -336,7 +364,7 @@ function DockerDjangoBlog() {
                     <p>Ahora sólo debemos ponerlo en marcha.</p>
                 </Typography>
                 <CodeBlock
-                    text={code[12]}
+                    text={code[13]}
                     language={'text'}
                     showLineNumbers={codeblock['showLineNumbers']}
                     startingLineNumber={codeblock['startingLineNumber']}
