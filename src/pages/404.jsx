@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import {Helmet} from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
     title:{
@@ -17,6 +18,11 @@ function NotFound() {
     const classes = useStyles();
 
     return (
+        <>
+        <Helmet>
+            <title>404</title>
+            <meta name="description" content="No encontrado"/>
+        </Helmet>
         <Box
             className={classes.mainContainer}
             display="flex"
@@ -29,6 +35,7 @@ function NotFound() {
                 404
             </Typography>
         </Box>
+        </>
     );
 }
 export default NotFound;
