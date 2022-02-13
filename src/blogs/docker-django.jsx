@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ImageComponent from '../pages/imageComponent';
 import { CodeBlock, dracula } from "react-code-blocks";
+import {Helmet} from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
 }));
@@ -94,6 +95,10 @@ function DockerDjangoBlog() {
 
     return (
         <>
+            <Helmet>
+                <title>{header.title}</title>
+                <meta name="description" content={header.title}/>
+            </Helmet>
             <Header title={header.title} author={header.author} date={header.date} profile={header.profile} description={header.description}/>
             <BlogContent
                 image="/images/docker-large.png"

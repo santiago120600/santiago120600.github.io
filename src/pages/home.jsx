@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Hero from './hero';
 import CardComponent  from './card';
 import Footer from './footer';
+import {Helmet} from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
     blogsContainer: {
@@ -32,6 +33,10 @@ function HomePage() {
 
     return (
         <>
+            <Helmet>
+                <title>Programundo</title>
+                <meta name="description" content="Blog de programación"/>
+            </Helmet>
             <Hero />
             <Container 
                 maxWidth="lg" 
